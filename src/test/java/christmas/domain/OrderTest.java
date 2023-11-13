@@ -10,6 +10,7 @@ import christmas.domain.repository.OrderRepository;
 
 import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -95,7 +96,12 @@ class OrderTest {
     @DisplayName("Order Repository Test")
     @TestInstance(TestInstance.Lifecycle.PER_METHOD)
     class OrderRepoTest {
-        private final OrderRepository orderRepository = OrderRepository.createRepository();
+        private OrderRepository orderRepository;
+
+        @BeforeEach
+        void setOrderRepository() {
+            orderRepository = new OrderRepository();
+        }
 
         @DisplayName("음료 메뉴에 대한 Order 만 존재할 경우, 예외가 발생한다.")
         @ParameterizedTest(name = "{index} 번째 음료 메뉴만 주문 = {0}")
