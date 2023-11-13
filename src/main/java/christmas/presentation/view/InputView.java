@@ -13,11 +13,16 @@ import java.util.ArrayList;
 
 public class InputView {
 
+    /** 방문 날짜를 입력받습니다. */
     public int readDate() {
         Printer.print(Ask.VISIT_DATE);
+
         String input = Reader.read();
         validateDateInput(input);
-        return Integer.parseInt(input);
+
+        int date = Integer.parseInt(input);
+        validateDate(date);
+        return date;
     }
 
     private void validateDateInput(String dateInput) {
@@ -30,10 +35,19 @@ public class InputView {
 
     }
 
+    private void validateDate(int date) {
+        if (date < Standard.FIRST_DATE_OF_DECEMBER || date > Standard.LAST_DATE_OF_DECEMBER) {
+            throw new GlobalException(GlobalError.NOT_AVAILABLE_DATE_INPUT_FORMAT);
+        }
+    }
+
+    /** 주문 메뉴와 수량을 입력받습니다. */
     public List<MenuInput> readMenuAndQuantity() {
         Printer.print(Ask.MENU);
+
         String input = Reader.read();
         validateMenuInput(input);
+
         return splitMenuInput(input);
     }
 
