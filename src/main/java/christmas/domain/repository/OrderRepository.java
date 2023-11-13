@@ -11,19 +11,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class OrderRepository {
-    private static OrderRepository repository;
     private final List<Order> orders ;
 
-    private OrderRepository() {
+    public OrderRepository() {
         orders = new ArrayList<>();
     }
 
-    public static OrderRepository createRepository() {
-        if (repository == null) {
-            repository = new OrderRepository();
-        }
-        return repository;
-    }
 
     // insert
     public void insert(List<Order> orders) {

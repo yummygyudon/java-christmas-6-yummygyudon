@@ -10,24 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChristmasPlanner {
-    private static ChristmasPlanner planner;
 
     private final ChristmasEventService eventService;
     private final InputView inputView;
     private final OutputView outputView;
 
 
-    private ChristmasPlanner() {
+    public ChristmasPlanner() {
         this.inputView = new InputView();
         this.outputView = new OutputView();
         this.eventService = new ChristmasEventService(registerDate());
-    }
-
-    public static ChristmasPlanner createPlanner() {
-        if (planner == null) {
-            planner = new ChristmasPlanner();
-        }
-        return planner;
     }
 
 

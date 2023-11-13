@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 class OrderService {
     private final OrderRepository orderRepository;
 
-    OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    OrderService() {
+        this.orderRepository = new OrderRepository();
     }
 
     /** Order 등록 */

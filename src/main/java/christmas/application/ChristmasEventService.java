@@ -5,7 +5,6 @@ import christmas.domain.entity.Order;
 import christmas.domain.enums.Badge;
 import christmas.domain.enums.EventDiscountType;
 import christmas.domain.enums.MenuType;
-import christmas.domain.repository.OrderRepository;
 import christmas.application.info.EventResultInfo;
 import christmas.presentation.view.InputView;
 import christmas.global.constant.Standard;
@@ -27,8 +26,7 @@ public class ChristmasEventService {
         this.menuService = new MenuService();
         this.giftService = new GiftService();
         this.discountService = new DiscountService();
-        OrderRepository orderRepository = OrderRepository.createRepository();
-        this.orderService = new OrderService(orderRepository);
+        this.orderService = new OrderService();
     }
 
     /** 주문합니다.*/
