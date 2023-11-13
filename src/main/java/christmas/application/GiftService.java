@@ -6,15 +6,17 @@ import christmas.global.constant.Standard;
 
 class GiftService {
 
-    public boolean isGiveaway(int totalAmount) {
+    /** 증정 Menu(Giveaway) 관련 기능 */
+    boolean isGiveaway(int totalAmount) {
         return totalAmount >= Standard.MINIMUM_AMOUNT_FOR_GIVEAWAY_EVENT;
     }
 
-
-    public boolean isBadge(int discountAmount) {
+    /** 증정 Badge 관련 기능 */
+    boolean isBadge(int discountAmount) {
         return discountAmount >= Standard.MINIMUM_AMOUNT_FOR_BADGE_EVENT;
     }
-    public Badge checkForBadge(int discountAmount) {
+
+    Badge checkForBadge(int discountAmount) {
         if (discountAmount >= Badge.SANTA.getPriceCriteria()) {
             return Badge.SANTA;
         }
