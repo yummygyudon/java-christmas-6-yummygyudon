@@ -2,8 +2,11 @@ package christmas.domain.repository;
 
 import christmas.domain.entity.Menu;
 import christmas.domain.enums.MenuType;
+import christmas.domain.exception.MenuException;
+import christmas.domain.exception.error.MenuError;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * 절댓값인 메뉴 데이터만 들어있는 클래스이기에 생성자를 막아놓습니다.
@@ -41,30 +44,11 @@ public abstract class MenuRepository {
         menus.put("샴페인", new Menu("샴페인", 25_000, MenuType.BEVERAGE));
     }
 
-
-    // select
-    public static Map<String, Menu> finalAll() {
-        return Collections.unmodifiableMap(menus);
-    }
-
     public static  Menu findMenuByName(String name) {
+        if (!menus.containsKey(name)) {
+            throw new MenuException(MenuError.MENU_NOT_FOUND);
+        }
         return menus.get(name);
     }
-
-    public static List<Menu> findAllMenuByType(MenuType type) {
-        List<Menu> menusOfType = new ArrayList<>();
-        for (Menu menu : menus.values()) {
-            if (menu.getType().equals(type)) {
-                menusOfType.add(menu);
-            }
-        }
-        return menusOfType;
-    }
-
-    // exist
-    public static boolean isExistByName(String name) {
-        return menus.containsKey(name);
-    }
-
 
 }
