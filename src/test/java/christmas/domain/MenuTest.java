@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DisplayName("Menu 도메인 테스트")
 class MenuTest {
 
     @DisplayName("존재하지 않는 메뉴를 찾으면 예외가 발생한다.")
