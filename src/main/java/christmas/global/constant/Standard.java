@@ -9,6 +9,7 @@ public abstract class Standard {
     public static final String MENU_INPUT_SEPARATOR_FOR_NAME_AND_QUANTITY = "-";
 
     // 날짜 관련 기준
+    public static final int MONTH_OF_DECEMBER = 12;
     public static final int FIRST_DATE_OF_DECEMBER = 1;
     public static final int LAST_DATE_OF_DECEMBER = 31;
     public static final int DATE_OF_CHRISTMAS = 25;
