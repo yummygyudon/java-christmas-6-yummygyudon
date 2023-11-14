@@ -1,8 +1,5 @@
 package christmas.application;
 
-import christmas.domain.entity.Menu;
-import christmas.domain.entity.Order;
-import christmas.domain.enums.Badge;
 import christmas.domain.enums.EventDiscountType;
 import christmas.domain.enums.MenuType;
 import christmas.application.info.EventResultInfo;
@@ -11,19 +8,17 @@ import christmas.global.constant.Standard;
 
 import java.util.List;
 
-public class ChristmasEventService {
+public class ChristmasPromotion {
 
     private static final String GIVEAWAY_EVENT_NAME = "증정 이벤트";
 
     private final int planningDate;
-    private final MenuService menuService;
     private final GiftService giftService;
     private final DiscountService discountService;
     private final OrderService orderService;
 
-    public ChristmasEventService(int date) {
+    public ChristmasPromotion(int date) {
         this.planningDate = date;
-        this.menuService = new MenuService();
         this.giftService = new GiftService();
         this.discountService = new DiscountService();
         this.orderService = new OrderService();
@@ -31,13 +26,7 @@ public class ChristmasEventService {
 
     /** 주문합니다.*/
     public void order(List<InputView.MenuInput> menuInputs) {
-        List<Order> orders = menuInputs.stream()
-                .map(menuInput -> {
-                    Menu menu = menuService.getMenu(menuInput.name());
-                    return new Order(menuInput.quantity(), menu);
-                })
-                .toList();
-        orderService.registerOrders(orders);
+        orderService.registerOrders(menuInputs);
     }
 
     /** 플래너의 정보를 반환합니다.*/
@@ -61,8 +50,9 @@ public class ChristmasEventService {
         if (!giftService.isGiveaway(orderService.getTotalAmount())) {
             return null;
         }
-        Menu giveawayMenu = menuService.getGiveawayMenu();
-        return new EventResultInfo.ReceiveMenu(giveawayMenu.getName(), 1);
+        String giveawayMenuName = giftService.getGiveawayMenuName();
+        int providedQuantity = giftService.getGiveawayMenuQuantity();
+        return new EventResultInfo.ReceiveMenu(giveawayMenuName, providedQuantity);
     }
 
     /** 크리스마스 디데이 혜택 내역을 반환합니다. */
@@ -117,8 +107,8 @@ public class ChristmasEventService {
         if (!giftService.isGiveaway(orderService.getTotalAmount())) {
             return null;
         }
-        Menu giveawayMenu = menuService.getGiveawayMenu();
-        return makeBenefitInfo(GIVEAWAY_EVENT_NAME, giveawayMenu.getPrice());
+        int giveawayMenuPrice = giftService.getGiveawayMenuPrice();
+        return makeBenefitInfo(GIVEAWAY_EVENT_NAME, giveawayMenuPrice);
     }
 
     // Benefit DTO로 만들어주는 생성 메서드
@@ -134,7 +124,7 @@ public class ChristmasEventService {
         }
         int totalBenefitAmount = combineAllDiscountAmount();
         if (giftService.isGiveaway(orderService.getTotalAmount())) {
-            totalBenefitAmount += menuService.getGiveawayMenu().getPrice();
+            totalBenefitAmount += giftService.getGiveawayMenuPrice();
         }
         return new EventResultInfo.Amount(totalBenefitAmount);
     }
@@ -174,7 +164,7 @@ public class ChristmasEventService {
         if (!giftService.isBadge(totalDiscountAmount)) {
             return null;
         }
-        Badge badge = giftService.checkForBadge(totalDiscountAmount);
-        return new EventResultInfo.Badge(badge.getName());
+        String badgeName = giftService.receiveBadgeName(totalDiscountAmount);
+        return new EventResultInfo.Badge(badgeName);
     }
 }
