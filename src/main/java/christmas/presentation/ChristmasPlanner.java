@@ -1,7 +1,7 @@
 package christmas.presentation;
 
 import christmas.application.info.EventResultInfo;
-import christmas.application.ChristmasEventService;
+import christmas.application.ChristmasPromotion;
 import christmas.presentation.view.InputView;
 import christmas.presentation.view.OutputView;
 import christmas.global.exception.base.ChristmasPlannerException;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ChristmasPlanner {
 
-    private final ChristmasEventService eventService;
+    private final ChristmasPromotion eventService;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -19,7 +19,7 @@ public class ChristmasPlanner {
     public ChristmasPlanner() {
         this.inputView = new InputView();
         this.outputView = new OutputView();
-        this.eventService = new ChristmasEventService(registerDate());
+        this.eventService = new ChristmasPromotion(registerDate());
     }
 
 
