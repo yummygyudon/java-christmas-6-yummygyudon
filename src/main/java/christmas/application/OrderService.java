@@ -1,9 +1,12 @@
 package christmas.application;
 
+import christmas.domain.entity.Menu;
 import christmas.domain.entity.Order;
 import christmas.domain.enums.MenuType;
+import christmas.domain.repository.MenuRepository;
 import christmas.domain.repository.OrderRepository;
 import christmas.application.info.EventResultInfo;
+import christmas.presentation.view.InputView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +19,13 @@ class OrderService {
     }
 
     /** Order 등록 */
-    void registerOrders(List<Order> orders) {
+    void registerOrders(List<InputView.MenuInput> menuInputs) {
+        List<Order> orders = menuInputs.stream()
+                .map(menuInput -> {
+                    Menu menu = MenuRepository.findMenuByName(menuInput.name());
+                    return new Order(menuInput.quantity(), menu);
+                })
+                .toList();
         orderRepository.insert(orders);
     }
 
