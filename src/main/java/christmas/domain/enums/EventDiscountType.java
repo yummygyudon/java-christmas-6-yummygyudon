@@ -1,8 +1,8 @@
 package christmas.domain.enums;
 
 public enum EventDiscountType {
-    WEEKDAY("평일 할인", 2_033),
-    WEEKEND("주말 할인", 2_033),
+    WEEKDAY("평일 할인", 2_023),
+    WEEKEND("주말 할인", 2_023),
     SPECIAL("특별 할인", 1_000),
     CHRISTMAS("크리스마스 디데이 할인", 1_000),
     ;
