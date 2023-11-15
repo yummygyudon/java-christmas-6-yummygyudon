@@ -8,7 +8,7 @@ class DiscountService {
 
     /** 크리스마스 D-Day 할인 관련 기능 */
     boolean isInChristmasDiscountEventPeriod(int date) {
-        return date < Standard.DATE_OF_CHRISTMAS;
+        return date <= Standard.DATE_OF_CHRISTMAS;
     }
 
     int getTotalChristmasEventDiscountAmount(int date) {
