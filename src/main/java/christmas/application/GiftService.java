@@ -44,6 +44,9 @@ class GiftService {
         if (discountAmount >= Badge.TREE.getPriceCriteria()) {
             return Badge.TREE.getName();
         }
-        return Badge.STAR.getName();
+        if (discountAmount >= Badge.STAR.getPriceCriteria()) {
+            return Badge.STAR.getName();
+        }
+        return Badge.NONE.getName();
     }
 }
