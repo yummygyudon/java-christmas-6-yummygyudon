@@ -51,7 +51,8 @@ class OrderService {
     int getOrdersCountByMenuType(MenuType menuType) {
         long totalOrderCount = orderRepository.findAll().stream()
                 .filter(order -> order.getMenu().getType().equals(menuType))
-                .count();
+                .mapToInt(Order::getQuantity)
+                .sum();
         return (int) totalOrderCount;
     }
 
